@@ -1,37 +1,54 @@
 {
-  "name": "react-native-turnstile",
-  "version": "1.0.9",
-  "description": "A wrapper for CloudFlare Turnstile for use in React Native apps.",
+  "name": "react-native-turnstile-next",
+  "version": "1.0.0",
+  "description": "A React Native wrapper for Cloudflare Turnstile using react-native-webview.",
+  "homepage": "https://github.com/ahmetcangurel/react-native-turnstile-next#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/designly1/react-native-turnstile.git"
+    "url": "git+https://github.com/ahmetcangurel/react-native-turnstile-next.git"
   },
-  "types": "dist",
-  "main": "dist",
+  "bugs": {
+    "url": "https://github.com/ahmetcangurel/react-native-turnstile-next/issues"
+  },
+  "license": "MIT",
+  "author": "Ahmet Can Gurel",
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
     "dev": "tsup src --format cjs,esm --watch",
-    "pub": "node scripts/publish.js"
+    "prepack": "npm run build"
   },
   "files": [
     "dist/**/*.js*",
     "dist/**/*.mjs*",
-    "dist/**/*.d*"
+    "dist/**/*.d*",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "keywords": [
-    "CloudFlare",
-    "Turnstile",
-    "React",
-    "Native",
-    "Captcha"
+    "cloudflare",
+    "turnstile",
+    "react-native",
+    "react-native-webview",
+    "captcha"
   ],
-  "author": {
-    "name": "Jay Simons",
-    "url": "https://jay.designly.biz",
-    "email": "jay@designly.biz"
-  },
-  "license": "MIT",
   "peerDependencies": {
     "react": ">=18.0",
     "react-native": ">=0.74",
@@ -47,14 +64,14 @@
     "@types/react": "^18.3.3",
     "@types/react-test-renderer": "^18.3.0",
     "babel-jest": "^29.7.0",
-    "eslint": "^9.8.0",
+    "eslint": "^8.57.1",
     "jest": "^29.7.0",
     "metro-react-native-babel-preset": "^0.77.0",
-    "prettier": "^3.3.3",
-    "react": "^18.3.1",
+    "prettier": "^2.8.8",
+    "react": "18.2.0",
     "react-native": "^0.74.5",
     "react-native-webview": "^13.10.5",
-    "react-test-renderer": "^18.3.1",
+    "react-test-renderer": "18.2.0",
     "tsup": "^8.2.4",
     "turnstile-types": "^1.2.1",
     "typescript": "^5.5.4"

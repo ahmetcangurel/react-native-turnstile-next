@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "TurnstileNextExample",
+    "slug": "react-native-turnstile-next-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "platforms": ["ios", "android"],
+    "jsEngine": "hermes"
+  }
+}

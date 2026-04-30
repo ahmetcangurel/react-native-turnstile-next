@@ -7,8 +7,9 @@ export const tsup: Options = {
 	keepNames: true,
 	minify: true,
 	sourcemap: true,
-	format: ['cjs'],
+	format: ['cjs', 'esm'],
+	external: ['react', 'react-native', 'react-native-webview'],
 	banner: {
-		js: `// react-native-turnstile by Jay Simons (@designly1)`,
+		js: `// react-native-turnstile-next`,
 	},
 };
