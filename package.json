@@ -1,6 +1,6 @@
 {
   "name": "react-native-turnstile-next",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React Native wrapper for Cloudflare Turnstile using react-native-webview.",
   "homepage": "https://github.com/ahmetcangurel/react-native-turnstile-next#readme",
   "repository": {

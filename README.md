@@ -140,7 +140,20 @@ Example:
 
 Unknown errors return `errorCode: "unknown"` and include the same `referenceUrl` so users can inspect Cloudflare's latest documentation.
 
-## Custom Bridge
+## Custom Domain
+
+If your Turnstile sitekey is configured for your own hostname, pass that hostname as `domain`:
+
+```tsx
+<ReactNativeTurnstile
+  sitekey="xxxxxxxxxxxxxxxxxxx"
+  domain="atplquestions.com"
+/>
+```
+
+When `domain` is provided without `path`, the package renders the Turnstile bridge HTML directly inside the `WebView` and uses the provided domain as the page origin. It does not navigate the `WebView` to your website.
+
+## Custom Hosted Bridge
 
 By default, the package loads:
 
@@ -158,7 +171,7 @@ You can provide your own bridge host and path:
 />
 ```
 
-`domain` accepts both `captcha.example.com` and `https://captcha.example.com`. `path` accepts both `custom-turnstile` and `/custom-turnstile`.
+`domain` accepts both `captcha.example.com` and `https://captcha.example.com`. `path` accepts both `custom-turnstile` and `/custom-turnstile`. Providing `path` opts into loading a hosted bridge URL.
 
 ## WebView Props
 
@@ -184,8 +197,8 @@ Use `webViewProps` to pass supported props to the internal `WebView`:
 | name              | required | type                                      | description                                    |
 | ----------------- | -------- | ----------------------------------------- | ---------------------------------------------- |
 | sitekey           | Yes      | `string`                                  | Sitekey of your Turnstile widget.              |
-| domain            | No       | `string`                                  | Bridge domain or URL. Defaults to `https://turnstile.1337707.xyz`. |
-| path              | No       | `string`                                  | Bridge path. Defaults to `/turnstile`.         |
+| domain            | No       | `string`                                  | Turnstile hostname for the inline bridge, or hosted bridge domain when `path` is also provided. Defaults to `https://turnstile.1337707.xyz`. |
+| path              | No       | `string`                                  | Hosted bridge path. Providing it opts into loading a hosted bridge URL. Defaults to `/turnstile` for the default bridge. |
 | action            | No       | `string`                                  | Turnstile action value.                        |
 | cData             | No       | `string`                                  | Custom data passed to Turnstile.               |
 | theme             | No       | `"light" \| "dark" \| "auto"`            | Widget theme.                                  |

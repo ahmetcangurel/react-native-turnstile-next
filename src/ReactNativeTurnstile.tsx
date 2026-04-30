@@ -5,7 +5,7 @@ import { WebView } from 'react-native-webview';
 import { TURNSTILE_DIMENSIONS } from './constants';
 import { useTurnstileControls } from './hooks/useTurnstileControls';
 import { getTurnstileError } from './utils/errors';
-import { buildTurnstileUrl } from './utils/url';
+import { buildTurnstileSource } from './utils/url';
 
 import type { StyleProp, ViewStyle } from 'react-native';
 import type { ReactNativeTurnstileEvent, TurnstileProps, TurnstileRef, TurnstileResetRef } from './types';
@@ -30,7 +30,7 @@ const ReactNativeTurnstile = React.forwardRef<TurnstileRef, TurnstileProps>((pro
 
 	useTurnstileControls(webviewRef, ref, resetRef);
 
-	const url = buildTurnstileUrl(props);
+	const source = buildTurnstileSource(props);
 	const dimensions = TURNSTILE_DIMENSIONS[size || 'normal'];
 
 	const computedStyles: StyleProp<ViewStyle> = StyleSheet.flatten([
@@ -43,7 +43,7 @@ const ReactNativeTurnstile = React.forwardRef<TurnstileRef, TurnstileProps>((pro
 			<WebView
 				{...webViewProps}
 				ref={webviewRef}
-				source={{ uri: url }}
+				source={source}
 				onMessage={event => {
 					try {
 						const eventData = JSON.parse(event.nativeEvent.data) as ReactNativeTurnstileEvent;
