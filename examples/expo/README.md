@@ -9,12 +9,12 @@ npx expo install react-native-webview
 npm run ios
 ```
 
-Replace `SITE_KEY` in `App.js` with your Cloudflare Turnstile sitekey before testing with a real widget.
+Replace `SITE_KEY` and `TURNSTILE_DOMAIN` in `App.tsx` with your Cloudflare Turnstile values before testing with a real widget.
 
 The example demonstrates:
 
 - `ref.current.execute()`
 - `ref.current.reset()`
-- `domain` and `path`
+- required `domain`
 - `webViewProps`
 - structured `onError` output

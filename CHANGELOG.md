@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.0.0 - 2026-05-04
+
+### Changed
+
+- Removed the default hosted bridge domain and path.
+- Made `domain` required so consumers explicitly provide the Turnstile hostname used as the WebView origin.
+- Render the Turnstile bridge inline instead of loading a hosted bridge URL.
+- Converted the Expo example app to TypeScript.
+
+### Removed
+
+- Removed the `path` prop and hosted bridge URL support.
+
 ## 1.0.0 - 2026-04-30
 
 ### Added
@@ -9,7 +22,7 @@ All notable changes to this project will be documented in this file.
 - Renamed the package for npm publishing as `react-native-turnstile-next`.
 - Added package metadata for the new GitHub repository and public npm publishing.
 - Added CommonJS, ESM, and TypeScript declaration outputs.
-- Added `domain` and `path` props for custom Turnstile bridge hosts.
+- Added a required `domain` prop for the Turnstile bridge origin.
 - Added imperative `ref` API with `reset()`, `reload()`, and `execute()`.
 - Added `webViewProps` for passing supported props to the internal `WebView`.
 - Added structured `TurnstileError` objects based on Cloudflare Turnstile error codes.

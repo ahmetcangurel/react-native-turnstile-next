@@ -4,9 +4,9 @@ A React Native wrapper for [Cloudflare Turnstile](https://challenges.cloudflare.
 
 ## How It Works
 
-The cookies used by Cloudflare Turnstile are incompatible with `react-native-webview`. This package loads a hosted bridge page inside a `WebView` and forwards Turnstile widget events back to your React Native app.
+The cookies used by Cloudflare Turnstile are incompatible with `react-native-webview`. This package renders a bridge page directly inside a `WebView`, uses your configured `domain` as the page origin, and forwards Turnstile widget events back to your React Native app.
 
-**Important**: Add `turnstile.1337707.xyz` to your Turnstile domains list. This is the hosted bridge domain used by this package.
+**Important**: Add the `domain` you pass to `ReactNativeTurnstile` to your Turnstile domains list.
 
 ## Installation
 
@@ -30,6 +30,7 @@ function TurnstileWidget() {
   return (
     <ReactNativeTurnstile
       sitekey="xxxxxxxxxxxxxxxxxxx"
+      domain="captcha.example.com"
       onVerify={(token) => console.log(token)}
       onError={(error) => console.log(error)}
       style={{ alignSelf: "center" }}
@@ -66,6 +67,7 @@ function TurnstileWidget() {
       <ReactNativeTurnstile
         ref={turnstileRef}
         sitekey="xxxxxxxxxxxxxxxxxxx"
+        domain="captcha.example.com"
         onVerify={(token) => console.log(token)}
         onExpire={() => turnstileRef.current?.reset()}
       />
@@ -94,6 +96,7 @@ function TurnstileWidget() {
       <ReactNativeTurnstile
         ref={turnstileRef}
         sitekey="xxxxxxxxxxxxxxxxxxx"
+        domain="captcha.example.com"
         execution="execute"
         onVerify={(token) => console.log(token)}
       />
@@ -104,7 +107,7 @@ function TurnstileWidget() {
 }
 ```
 
-`reset()` and `reload()` reload the internal `WebView`. `execute()` injects an execute request into the bridge page. For custom bridges, listen for the `react-native-turnstile:execute` browser event or expose `window.turnstile.execute()`.
+`reset()` and `reload()` reload the internal `WebView`. `execute()` injects an execute request into the bridge page.
 
 The older `resetRef` prop and `resetTurnstile(resetRef)` helper are still available for compatibility.
 
@@ -115,6 +118,7 @@ The older `resetRef` prop and `resetTurnstile(resetRef)` helper are still availa
 ```tsx
 <ReactNativeTurnstile
   sitekey="xxxxxxxxxxxxxxxxxxx"
+  domain="captcha.example.com"
   onError={(error) => {
     console.log(error.errorCode);
     console.log(error.description);
@@ -142,7 +146,7 @@ Unknown errors return `errorCode: "unknown"` and include the same `referenceUrl`
 
 ## Custom Domain
 
-If your Turnstile sitekey is configured for your own hostname, pass that hostname as `domain`:
+Pass the hostname configured for your Turnstile sitekey as `domain`:
 
 ```tsx
 <ReactNativeTurnstile
@@ -151,27 +155,7 @@ If your Turnstile sitekey is configured for your own hostname, pass that hostnam
 />
 ```
 
-When `domain` is provided without `path`, the package renders the Turnstile bridge HTML directly inside the `WebView` and uses the provided domain as the page origin. It does not navigate the `WebView` to your website.
-
-## Custom Hosted Bridge
-
-By default, the package loads:
-
-```txt
-https://turnstile.1337707.xyz/turnstile
-```
-
-You can provide your own bridge host and path:
-
-```tsx
-<ReactNativeTurnstile
-  sitekey="xxxxxxxxxxxxxxxxxxx"
-  domain="captcha.example.com"
-  path="/custom-turnstile"
-/>
-```
-
-`domain` accepts both `captcha.example.com` and `https://captcha.example.com`. `path` accepts both `custom-turnstile` and `/custom-turnstile`. Providing `path` opts into loading a hosted bridge URL.
+The package renders the Turnstile bridge HTML directly inside the `WebView` and uses the provided domain as the page origin. It does not navigate the `WebView` to your website. `domain` accepts both `captcha.example.com` and `https://captcha.example.com`.
 
 ## WebView Props
 
@@ -180,6 +164,7 @@ Use `webViewProps` to pass supported props to the internal `WebView`:
 ```tsx
 <ReactNativeTurnstile
   sitekey="xxxxxxxxxxxxxxxxxxx"
+  domain="captcha.example.com"
   webViewProps={{
     cacheEnabled: false,
     incognito: true,
@@ -197,8 +182,7 @@ Use `webViewProps` to pass supported props to the internal `WebView`:
 | name              | required | type                                      | description                                    |
 | ----------------- | -------- | ----------------------------------------- | ---------------------------------------------- |
 | sitekey           | Yes      | `string`                                  | Sitekey of your Turnstile widget.              |
-| domain            | No       | `string`                                  | Turnstile hostname for the inline bridge, or hosted bridge domain when `path` is also provided. Defaults to `https://turnstile.1337707.xyz`. |
-| path              | No       | `string`                                  | Hosted bridge path. Providing it opts into loading a hosted bridge URL. Defaults to `/turnstile` for the default bridge. |
+| domain            | Yes      | `string`                                  | Turnstile hostname used as the internal WebView origin. |
 | action            | No       | `string`                                  | Turnstile action value.                        |
 | cData             | No       | `string`                                  | Custom data passed to Turnstile.               |
 | theme             | No       | `"light" \| "dark" \| "auto"`            | Widget theme.                                  |

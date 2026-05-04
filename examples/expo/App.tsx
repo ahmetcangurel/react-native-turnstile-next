@@ -2,10 +2,13 @@ import { useRef, useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import ReactNativeTurnstile from 'react-native-turnstile-next';
 
+import type { TurnstileRef } from 'react-native-turnstile-next';
+
 const SITE_KEY = '1x00000000000000000000AA';
+const TURNSTILE_DOMAIN = 'turnstile.1337707.xyz';
 
 export default function App() {
-	const turnstileRef = useRef(null);
+	const turnstileRef = useRef<TurnstileRef>(null);
 	const [token, setToken] = useState('');
 
 	return (
@@ -15,8 +18,7 @@ export default function App() {
 				<ReactNativeTurnstile
 					ref={turnstileRef}
 					sitekey={SITE_KEY}
-					domain="turnstile.1337707.xyz"
-					path="/turnstile"
+					domain={TURNSTILE_DOMAIN}
 					execution="execute"
 					onVerify={setToken}
 					onError={error => console.warn(error)}

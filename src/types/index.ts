@@ -11,16 +11,9 @@ export interface TurnstileProps extends TurnstileCallbacks {
 	sitekey: string;
 
 	/**
-	 * Bridge domain or full URL used by the internal WebView.
-	 * Defaults to `https://turnstile.1337707.xyz`.
+	 * Bridge domain or full URL used as the internal WebView origin.
 	 */
-	domain?: string;
-
-	/**
-	 * Bridge path used with the configured domain.
-	 * Defaults to `/turnstile`.
-	 */
-	path?: string;
+	domain: string;
 
 	/**
 	 * Customer value used to differentiate widgets under the same sitekey in analytics.
